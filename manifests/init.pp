@@ -10,7 +10,7 @@ class java {
       }->
       exec { "import gpg key webupd8team":
         command => "/bin/cat /tmp/webupd8team.key | apt-key add -",
-        unless => "/usr/bin/apt-key list | grep -Fe 'webupd8team' | grep -Fvqe 'expired:'",
+        unless => "/usr/bin/apt-key list | grep -q 'Launchpad VLC'",
         before => Exec['apt_update'],
         notify => Exec['apt_update'],
       }->      
@@ -44,5 +44,3 @@ class java {
     default: { notice "Unsupported operatingsystem ${::operatingsystem}" }
   }
 }
-
-
