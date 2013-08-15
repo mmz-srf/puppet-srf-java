@@ -8,7 +8,7 @@ class java::debian {
   exec { "import gpg key webupd8team":
     command => "/bin/cat /tmp/webupd8team.key | apt-key add -",
     unless  => "/usr/bin/apt-key list | grep -q 'Launchpad VLC'",
-    notify  => Class['::apt::apt_update'],
+    notify  => Class['::apt::update'],
   } ->
   apt::source { 'webupd8team': 
     location    => "http://ppa.launchpad.net/webupd8team/java/ubuntu",
