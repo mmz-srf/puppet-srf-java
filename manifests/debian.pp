@@ -15,7 +15,7 @@ class java::debian {
     release     => "raring",
     repos       => "main",
     key         => "EEA14886",
-    key_server  => "keyserver.ubuntu.com",
+    key_server  => "hkp://keyserver.ubuntu.com:80",
     include_src => true
   } ->
   file { '/tmp/java.preseed':
