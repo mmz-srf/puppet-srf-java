@@ -24,6 +24,7 @@ class java::debian {
     backup => false,
   } ->
   package { 'oracle-java7-installer':
+    ensure       =>  held,
     responsefile => '/tmp/java.preseed',
   }
 }
