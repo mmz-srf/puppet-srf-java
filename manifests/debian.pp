@@ -1,6 +1,14 @@
-class java::debian {
+class java::debian (
+  $version = '7',
+){
   include apt
   
+  if $version == 7 {
+    $package_name = 'oracle-java7-jre'
+  } else {
+    $package_name = "oracle-java${::version}-installer"
+  }
+
   file { '/tmp/webupd8team.key':
     ensure => file,
     source => 'puppet:///modules/java/webupd8team.key'
@@ -12,7 +20,7 @@ class java::debian {
   } ->
   apt::source { 'webupd8team': 
     location    => "http://ppa.launchpad.net/webupd8team/java/ubuntu",
-    release     => "raring",
+    release     => "vivid",
     repos       => "main",
     key         => "EEA14886",
     key_server  => "hkp://keyserver.ubuntu.com:80",
@@ -23,7 +31,7 @@ class java::debian {
     mode   => '0600',
     backup => false,
   } ->
-  package { 'oracle-java7-jre':
+  package { $package_name:
     ensure       =>  held,
     responsefile => '/tmp/java.preseed',
   }

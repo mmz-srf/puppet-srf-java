@@ -1,7 +1,14 @@
-class java {
+class java (
+  $version = '7',
+  $distribution = undef, # this parameter is just for compatibility https://forge.puppetlabs.com/puppetlabs/java
+){
   case $::operatingsystem {
     debian: {
-      include java::debian
+
+      class {'java::debian':
+        version => $version,
+      }
+
     }
     default: {
       notice "Unsupported operatingsystem ${::operatingsystem}"
