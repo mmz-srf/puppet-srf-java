@@ -2,12 +2,8 @@ class java::debian (
   $version = '7',
 ){
   include apt
-  
-  if $version == 7 {
-    $package_name = 'oracle-java7-jre'
-  } else {
-    $package_name = "oracle-java${version}-installer"
-  }
+
+  $package_name = "oracle-java${version}-installer"
 
   file { '/tmp/webupd8team.key':
     ensure => file,
