@@ -28,7 +28,7 @@ class java::debian (
     backup => false,
   } ->
   package { $package_name:
-    ensure       =>  held,
+    ensure       =>  installed,
     responsefile => '/tmp/java.preseed',
   }
 }
