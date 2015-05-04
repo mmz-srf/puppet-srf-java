@@ -4,6 +4,7 @@ class java::debian (
   include apt
 
   $package_name = "oracle-java${version}-installer"
+  $package_unlimited_jce = "oracle-java${version}-unlimited-jce-policy"
 
   file { '/tmp/webupd8team.key':
     ensure => file,
@@ -30,5 +31,8 @@ class java::debian (
   package { $package_name:
     ensure       =>  installed,
     responsefile => '/tmp/java.preseed',
+  } ->
+  package { $package_unlimited_jce:
+    ensure => installed,
   }
 }
