@@ -19,7 +19,7 @@ class java::debian (
     location    => "http://ppa.launchpad.net/webupd8team/java/ubuntu",
     release     => "vivid",
     repos       => "main",
-    key         => "EEA14886",
+    key         => "7B2C3B0889BF5709A105D03AC2518248EEA14886",
     key_server  => "hkp://keyserver.ubuntu.com:80",
     include_src => true
   } ->
