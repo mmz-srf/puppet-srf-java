@@ -1,5 +1,5 @@
 class java (
-  $version = '7',
+  $version = '8',
   $distribution = undef, # this parameter is just for compatibility https://forge.puppetlabs.com/puppetlabs/java
 ){
   case $::operatingsystem {
