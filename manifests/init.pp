@@ -6,7 +6,6 @@ class java (
 ){
   case $::operatingsystem {
     debian: {
-
       if $use_openjdk {
         class {'java::debian-openjdk':
           version             => $version,
@@ -17,10 +16,6 @@ class java (
           version => $version,
         }
       }
-      class {'java::debian':
-        version => $version,
-      }
-
     }
     default: {
       notice "Unsupported operatingsystem ${::operatingsystem}"

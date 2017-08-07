@@ -4,21 +4,26 @@ class java::debian-openjdk (
   $version            = undef,
   $openjdk_jre_only   = undef,
 ){
+  $packages_jre = "openjdk-${version}-jre"
+  $packages_jdk = "openjdk-${version}-jdk"
 
-  if $::operatingsystemmajrelease == 7 && $version >= 8 {
-    fail("Openjdk 8+ is not available for Debian 7 (wheezy)")
-  }
-
-  $package_jre = "openjdk-${version}-jre"
-  $package_jdk = "openjdk-${version}-jdk"
-
-  if $openjdk_jre_only {
-    package { $package_jre:
-      ensure => installed,
-    }
+  if $::operatingsystemmajrelease <= 7 {
+    info("This module doesn't work for Debian versions < 8 - Use puppet package command instead, if you really want to use the old version")
   } else {
-    package { ["${package_jdk}", "${package_jre}":
-      ensure => installed,
+    if $openjdk_jre_only {
+      package { $packages_jre:
+        ensure            => installed,
+        install_options   => ["-t","${::lsbdistcodename}-backports", "-f"],
+      }
+      if $version >= 8 {
+        package { ['openjdk-7-jre-headless', 'openjdk-7-jre']:
+          ensure            => absent,
+        }
+      }
+    } else {
+      package { $packages_jdk:
+        ensure => installed,
+      }
     }
   }
 }
