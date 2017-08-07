@@ -8,7 +8,7 @@ class java::debian-openjdk (
   $packages_jdk = "openjdk-${version}-jdk"
 
   if $::operatingsystemmajrelease <= 7 {
-    info("This module doesn't work for Debian versions < 8 - Use puppet package command instead, if you really want to use the old version")
+    notify{"This Java module doesn't work for Debian versions < 8 - Use puppet package command instead, if you really want to use the old version - notify": }
   } else {
     if $openjdk_jre_only {
       package { $packages_jre:
