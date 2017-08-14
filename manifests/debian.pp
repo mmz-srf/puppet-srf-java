@@ -1,5 +1,5 @@
 class java::debian (
-  $version = '7',
+  $version = '8',
 ){
   include apt
 
