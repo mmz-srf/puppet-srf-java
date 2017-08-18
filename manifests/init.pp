@@ -15,6 +15,11 @@ class java (
         class {'java::debian':
           version => $version,
         }
+        if $java_version >= 8 and !defined(Package['ammonite']) {
+          package { 'ammonite':
+            ensure => installed,
+          }
+        }
       }
     }
     default: {
