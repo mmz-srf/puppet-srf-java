@@ -7,6 +7,8 @@ class java::debian-openjdk (
   $packages_jre = "openjdk-${version}-jre"
   $packages_jdk = "openjdk-${version}-jdk"
 
+  $previous_version = $version - 1
+
   if $::operatingsystemmajrelease <= 7 {
     notify{"This Java module doesn't work for Debian versions < 8 - Use puppet package command instead, if you really want to use the old version - notify": }
   } else {
@@ -14,16 +16,19 @@ class java::debian-openjdk (
       package { $packages_jre:
         ensure            => installed,
         install_options   => ["-t","${::lsbdistcodename}-backports", "-f"],
-      }
-      if $version >= 8 {
-        package { ['openjdk-7-jre-headless', 'openjdk-7-jre']:
-          ensure            => absent,
-        }
+      }->
+      package { ["openjdk-${previous_version}-jre-headless", "openjdk-${previous_version}-jre", $packages_jdk]:
+        ensure            => absent,
       }
     } else {
-      package { $packages_jdk:
+      package { [$packages_jre, $packages_jdk]:
         ensure => installed,
+        install_options   => ["-t","${::lsbdistcodename}-backports", "-f"],
+      }->
+      package { ["openjdk-${previous_version}-jdk-headless", "openjdk-${previous_version}-jdk"]:
+        ensure            => absent,
       }
     }
   }
 }
+
