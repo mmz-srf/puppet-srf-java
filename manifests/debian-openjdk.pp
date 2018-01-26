@@ -25,10 +25,9 @@ class java::debian-openjdk (
         ensure => installed,
         install_options   => ["-t","${::lsbdistcodename}-backports", "-f"],
       }->
-      package { ["openjdk-${previous_version}-jdk-headless", "openjdk-${previous_version}-jdk"]:
+      package { ["openjdk-${previous_version}-jdk-headless", "openjdk-${previous_version}-jdk", "openjdk-${previous_version}-jre-headless", "openjdk-${previous_version}-jre"]:
         ensure            => absent,
       }
     }
   }
 }
-
