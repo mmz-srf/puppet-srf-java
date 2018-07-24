@@ -15,9 +15,9 @@ class java::debian (
     unless  => "/usr/bin/apt-key list | grep -q 'Launchpad VLC'",
     notify  => Class['::apt::update'],
   } ->
-  apt::source { 'webupd8team': 
+  apt::source { 'webupd8team':
     location    => "http://ppa.launchpad.net/webupd8team/java/ubuntu",
-    release     => "vivid",
+    release     => "xenial",
     repos       => "main",
     key         => "7B2C3B0889BF5709A105D03AC2518248EEA14886",
     key_server  => "hkp://keyserver.ubuntu.com:80",
