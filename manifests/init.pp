@@ -7,7 +7,7 @@ class java (
   case $::operatingsystem {
     debian: {
       if $use_openjdk {
-        class {'java::debian-openjdk':
+        class {'java::debian_openjdk':
           version             => $version,
           openjdk_jre_only    => $openjdk_jre_only,
         }
@@ -22,4 +22,3 @@ class java (
     }
   }
 }
-

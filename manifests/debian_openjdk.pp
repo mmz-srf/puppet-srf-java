@@ -1,6 +1,6 @@
 # Debian backport repository is needed
 
-class java::debian-openjdk (
+class java::debian_openjdk (
   $version            = undef,
   $openjdk_jre_only   = undef,
 ){
@@ -9,7 +9,7 @@ class java::debian-openjdk (
 
   $previous_version = $version - 1
 
-  if $::operatingsystemmajrelease <= 7 {
+  if $::operatingsystemmajrelease <= '7' {
     notify{"This Java module doesn't work for Debian versions < 8 - Use puppet package command instead, if you really want to use the old version - notify": }
   } else {
     if $openjdk_jre_only {
