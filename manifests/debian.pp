@@ -19,9 +19,9 @@ class java::debian (
     location    => "http://ppa.launchpad.net/webupd8team/java/ubuntu",
     release     => "xenial",
     repos       => "main",
-    key         => "7B2C3B0889BF5709A105D03AC2518248EEA14886",
-    key_server  => "hkp://keyserver.ubuntu.com:80",
-    include_src => true
+    key         => { 'id'        => "7B2C3B0889BF5709A105D03AC2518248EEA14886",
+                     'server'    => "hkp://keyserver.ubuntu.com:80" },
+    include     => { 'src'       => true },
   } ->
   file { '/tmp/java.preseed':
     source => 'puppet:///modules/java/java.preseed',
