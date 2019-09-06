@@ -9,10 +9,10 @@ class java::debian_openjdk (
 
   $previous_version = $version - 1
 
-  if $::operatingsystemmajrelease <= '7' {
+  if (versioncmp($facts['os']['distro']['release']['major'], '7') <= 0) {
     notify{"This Java module doesn't work for Debian versions < 8 - Use puppet package command instead, if you really want to use the old version - notify": }
   }
-  elsif $::operatingsystemmajrelease == '8' {
+  elsif (versioncmp($facts['os']['distro']['release']['major'], '8') == 0)  {
     # Get Java from backports
     if $openjdk_jre_only {
       package { $packages_jre:
