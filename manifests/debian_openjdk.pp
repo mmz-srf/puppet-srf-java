@@ -12,7 +12,18 @@ class java::debian_openjdk (
   if (versioncmp($facts['os']['distro']['release']['major'], '7') <= 0) {
     notify{"This Java module doesn't work for Debian versions < 8 - Use puppet package command instead, if you really want to use the old version - notify": }
   }
-  elsif (versioncmp($facts['os']['distro']['release']['major'], '8') == 0)  {
+  elsif ((versioncmp($facts['os']['distro']['release']['major'], '8') == 0) or (versioncmp($facts['os']['distro']['release']['major'], '9') == 0 and $version >= 9))  {
+    # Add backports repository
+    if !defined(Apt::Source['debian-backports']) {
+      apt::source { 'debian-backports':
+        location    => 'http://ftp.ch.debian.org/debian',
+        release     => "${::lsbdistcodename}-backports",
+        repos       => 'main contrib non-free',
+        include     => { 'src' => false },
+        notify      => Exec['apt_update'],
+      }
+    }
+
     # Get Java from backports
     if $openjdk_jre_only {
       package { $packages_jre:
