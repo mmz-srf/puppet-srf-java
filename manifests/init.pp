@@ -1,4 +1,4 @@
-class java (
+class javalegacy (
   $version              = '8',
   $distribution         = undef, # this parameter is just for compatibility https://forge.puppetlabs.com/puppetlabs/java
   $use_openjdk          = false,
@@ -7,12 +7,12 @@ class java (
   case $::operatingsystem {
     debian: {
       if $use_openjdk {
-        class {'java::debian_openjdk':
+        class {'javalegacy::debian_openjdk':
           version             => $version,
           openjdk_jre_only    => $openjdk_jre_only,
         }
       } else {
-        class {'java::debian':
+        class {'javalegacy::debian':
           version => $version,
         }
       }

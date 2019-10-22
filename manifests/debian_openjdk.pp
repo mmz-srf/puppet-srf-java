@@ -1,6 +1,6 @@
 # Debian backport repository is needed
 
-class java::debian_openjdk (
+class javalegacy::debian_openjdk (
   $version            = undef,
   $openjdk_jre_only   = undef,
 ){

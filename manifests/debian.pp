@@ -1,4 +1,4 @@
-class java::debian (
+class javalegacy::debian (
   $version = '8',
 ){
   include apt
